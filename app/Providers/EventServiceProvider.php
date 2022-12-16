@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use \SocialiteProviders\Manager\SocialiteWasCalled;
+use \SocialiteProviders\Azure\AzureExtendSocialite;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        SocialiteWasCalled::class => [
+            AzureExtendSocialite::class . '@handle',
         ],
     ];
 
