@@ -25,9 +25,7 @@ class UserTest extends TestCase
     {
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->user->departments);
 
-        $count = 5;
-
-        $departments = Department::factory($count)->create();
+        $departments = Department::factory($count = 5)->create();
         $departments->map(fn ($department) => $department->addUser($this->user));
 
         $this->assertCount($count, $this->user->fresh()->departments);
