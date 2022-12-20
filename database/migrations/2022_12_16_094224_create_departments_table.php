@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('parent_id')->nullable();
             /** @TODO: external_id -- imported from other */
             /** @TODO: Manager  */
             $table->timestamps();

@@ -21,7 +21,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function a_user_belongs_to_many_departments()
+    public function a_user_can_belong_to_many_departments()
     {
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->user->departments);
 

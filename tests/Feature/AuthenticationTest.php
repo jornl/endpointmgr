@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
+use Mockery;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -14,33 +16,34 @@ class AuthenticationTest extends TestCase
     // @TODO: Rewrite to adhere to socialite-setup.
 
     /** @test */
-    public function example_test()
+    public function it_redirects_to_microsoft()
     {
-        $this->assertTrue(true);
+        $response = $this->get(route('login'));
+
+        $this->assertStringStartsWith('https://login.microsoftonline.com/', $response->getTargetUrl());
     }
 
-    // public function test_users_can_authenticate_using_the_login_screen()
-    // {
-    //     $user = User::factory()->create();
+    /** @test */
+    public function it_logs_the_user_in_with_azure_and_redirects_to_dashboard()
+    {
+        $abstractUser = Mockery::mock('Laravel\Socialite\Two\User');
+        $abstractUser
+            ->shouldReceive('getId')
+            ->andReturn(rand())
+            ->shouldReceive('getName')
+            ->andReturn('King Charles')
+            ->shouldReceive('getEmail')
+            ->andReturn(Str::random() . "@example.com");
 
-    //     $response = $this->post('/login', [
-    //         'email' => $user->email,
-    //         'password' => 'password',
-    //     ]);
+        $provider = Mockery::mock('Laravel\Socialite\Contracts\Provider');
+        $provider->shouldReceive('user')->andReturn($abstractUser);
 
-    //     $this->assertAuthenticated();
-    //     $response->assertRedirect(RouteServiceProvider::HOME);
-    // }
+        Socialite::shouldReceive('driver')
+            ->with('azure')
+            ->andReturn($provider);
 
-    // public function test_users_can_not_authenticate_with_invalid_password()
-    // {
-    //     $user = User::factory()->create();
-
-    //     $this->post('/login', [
-    //         'email' => $user->email,
-    //         'password' => 'wrong-password',
-    //     ]);
-
-    //     $this->assertGuest();
-    // }
+        $this->get('/auth/callback')->assertRedirect(RouteServiceProvider::HOME);
+        $this->assertAuthenticated();
+        $this->assertDatabaseHas('users', ['name' => 'King Charles']);
+    }
 }

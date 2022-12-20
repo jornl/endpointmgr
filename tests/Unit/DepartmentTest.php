@@ -22,16 +22,11 @@ class DepartmentTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_a_collection_of_users()
-    {
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->department->users);
-    }
-
-    /** @test */
-    public function it_has_many_users()
+    public function a_department_can_have_many_users()
     {
         $this->department->users()->attach(User::factory(5)->create());
 
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->department->users);
         $this->assertCount(5, $this->department->users);
 
         $user = User::factory()->create();
@@ -41,24 +36,22 @@ class DepartmentTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_a_collection_of_departments()
+    public function a_department_can_belong_to_a_parent_department()
     {
-        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->department->departments);
+        $this->department->children()->save($child = Department::factory()->create());
 
-        $this->department->departments()->attach(Department::factory(2)->create());
+        $this->assertInstanceOf(Department::class, $child->parent);
 
-        $this->assertCount(2, $this->department->fresh()->departments);
+        $this->assertEquals($child->parent->name, $this->department->name);
     }
 
     /** @test */
-    public function a_department_can_have_infinite_children()
+    public function a_department_can_have_many_child_departments()
     {
-        $this->department->departments()->attach($childDepartment = Department::factory()->create());
+        $this->department->children()->saveMany(Department::factory($count = 5)->create());
 
-        $this->assertEquals($this->department->departments[0]->name, $childDepartment->name);
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->department->children);
 
-        $childDepartment->departments()->attach($grandChildDepartment = Department::factory()->create());
-
-        $this->assertEquals($childDepartment->departments[0]->name, $grandChildDepartment->name);
+        $this->assertCount($count, $this->department->children);
     }
 }

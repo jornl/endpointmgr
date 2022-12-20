@@ -26,10 +26,13 @@ class Department extends Model
             ->withTimestamps();
     }
 
-    public function departments()
+    public function parent()
     {
-        return $this->belongsToMany(Department::class, 'department_department', 'parent_id', 'department_id')
-            ->withTimestamps()
-            ->with('departments');
+        return $this->belongsTo(Department::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Department::class, 'parent_id');
     }
 }
