@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Department;
+use App\Models\Device;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -53,5 +54,14 @@ class DepartmentTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->department->children);
 
         $this->assertCount($count, $this->department->children);
+    }
+
+    /** @test */
+    public function a_department_can_have_many_devices()
+    {
+        $this->department->devices()->save($device = Device::factory()->create());
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $this->department->devices);
+        $this->assertEquals($this->department->devices[0]->serial_number, $device->serial_number);
     }
 }

@@ -13,19 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('device_models', function (Blueprint $table) {
             $table->id();
-            $table->string('serial_number');
-
-            $table->foreignId('device_model_id')
-                ->constrained('device_models');
-
-            // $table->foreignId('user_id')
-            //     ->constrained()
-            //     ->nullable();
-
-            $table->nullableMorphs('assignable');
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -37,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('device_models');
     }
 };

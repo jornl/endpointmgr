@@ -35,4 +35,9 @@ class Department extends Model
     {
         return $this->hasMany(Department::class, 'parent_id');
     }
+
+    public function devices()
+    {
+        return $this->morphMany(Device::class, 'assignable');
+    }
 }

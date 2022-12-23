@@ -47,4 +47,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Department::class)
             ->withTimestamps();
     }
+
+    public function devices()
+    {
+        return $this->morphMany(Device::class, 'assignable');
+    }
 }

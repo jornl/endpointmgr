@@ -2,15 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\DeviceModel;
-use App\Models\User;
+use App\Models\Manufacturer;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Device>
  */
-class DeviceFactory extends Factory
+class DeviceModelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,10 +18,8 @@ class DeviceFactory extends Factory
     public function definition()
     {
         return [
-            'serial_number' => Str::random(8),
-            'device_model_id' => DeviceModel::factory()->create(),
-            'assignable_type' => null,
-            'assignable_id' => null
+            'name' => $this->faker->company(),
+            'manufacturer_id' => Manufacturer::factory()->create(),
         ];
     }
 }
