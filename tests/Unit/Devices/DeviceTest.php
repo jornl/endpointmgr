@@ -5,6 +5,7 @@ namespace Tests\Devices\Unit;
 use App\Models\Department;
 use App\Models\Device;
 use App\Models\DeviceModel;
+use App\Models\DeviceService;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -44,5 +45,15 @@ class DeviceTest extends TestCase
 
         $this->assertInstanceOf(Department::class, $this->device->assignable);
         $this->assertEquals($this->device->assignable, $department);
+    }
+
+    /** @test */
+    public function it_can_have_many_services()
+    {
+        $device = Device::factory()->create();
+        DeviceService::factory($count = 5)->create(['device_id' => $device->id]);
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Collection::class, $device->services);
+        $this->assertCount($count, $device->services);
     }
 }

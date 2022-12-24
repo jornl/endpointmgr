@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Manufacturer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ManufacturerSeeder extends Seeder
+class DeviceServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +14,6 @@ class ManufacturerSeeder extends Seeder
      */
     public function run()
     {
-        Manufacturer::create(
-            ['name' => 'Dell Inc.'],
-            ['name' => 'HP']
-        );
+        //
     }
 }

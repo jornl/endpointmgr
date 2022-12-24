@@ -9,11 +9,16 @@ class Device extends Model
 {
     use HasFactory;
 
-    protected $with = ['model'];
+    protected $with = ['model', 'services'];
 
     public function model()
     {
         return $this->belongsTo(DeviceModel::class, 'device_model_id');
+    }
+
+    public function services()
+    {
+        return $this->hasMany(DeviceService::class);
     }
 
     public function assignable()
