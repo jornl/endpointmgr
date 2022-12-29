@@ -36,7 +36,9 @@ class ManufacturerController extends Controller
      */
     public function store(StoreManufacturerRequest $request)
     {
-        //
+        Manufacturer::create($request->validated());
+
+        return to_route('dashboard');
     }
 
     /**
@@ -47,7 +49,7 @@ class ManufacturerController extends Controller
      */
     public function show(Manufacturer $manufacturer)
     {
-        //
+        return $manufacturer;
     }
 
     /**
@@ -70,7 +72,9 @@ class ManufacturerController extends Controller
      */
     public function update(UpdateManufacturerRequest $request, Manufacturer $manufacturer)
     {
-        //
+        $manufacturer->update($request->validated());
+
+        return to_route('manufacturer.show', $manufacturer->id);
     }
 
     /**

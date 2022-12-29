@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ManufacturerSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +14,6 @@ class ManufacturerSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('manufacturers')->insert([
-            ['name' => 'Dell Inc.'],
-            ['name' => 'HP']
-        ]);
+        //
     }
 }

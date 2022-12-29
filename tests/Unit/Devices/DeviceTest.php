@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Devices\Unit;
+namespace Tests\Unit\Devices;
 
 use App\Models\Department;
 use App\Models\Device;
