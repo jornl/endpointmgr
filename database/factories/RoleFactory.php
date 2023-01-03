@@ -16,8 +16,11 @@ class RoleFactory extends Factory
      */
     public function definition()
     {
+        $roles = ['user', 'manager', 'technician', 'administrator'];
+
         return [
-            //
+            'name' => $roles[rand(0, 3)],
+            'label' => ucwords($roles[rand(0, 3)]),
         ];
     }
 }

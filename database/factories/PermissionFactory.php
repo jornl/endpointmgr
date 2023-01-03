@@ -16,8 +16,12 @@ class PermissionFactory extends Factory
      */
     public function definition()
     {
+        $nouns = ['create', 'read', 'update', 'delete'];
+        $types = ['posts', 'devices', 'departments', 'manufacturer'];
+
         return [
-            //
+            'name' => "{$nouns[rand(0, 3)]}_{$types[rand(0, 3)]}",
+            'label' => str_replace("_", " ", ucwords("{$nouns[rand(0, 3)]}_{$types[rand(0, 3)]}")),
         ];
     }
 }

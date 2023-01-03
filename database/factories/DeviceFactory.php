@@ -21,7 +21,7 @@ class DeviceFactory extends Factory
     {
         return [
             'serial_number' => Str::random(8),
-            'model_number' => DeviceModel::factory()->create()->id,
+            'device_model_id' => DeviceModel::factory()->create(),
             'assignable_type' => null,
             'assignable_id' => null
         ];

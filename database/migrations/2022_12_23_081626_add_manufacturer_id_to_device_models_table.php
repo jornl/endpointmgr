@@ -15,8 +15,13 @@ return new class extends Migration
     {
         Schema::table('device_models', function (Blueprint $table) {
             $table->foreignId('manufacturer_id')
+                ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
+        });
+
+        Schema::table('device_models', function (Blueprint $table) {
+            $table->foreignId('manufacturer_id')->nullable(false)->change();
         });
     }
 
