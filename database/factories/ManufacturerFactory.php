@@ -18,6 +18,7 @@ class ManufacturerFactory extends Factory
     {
         return [
             'name' => $this->faker->company(),
+            'display_name' => $this->faker->company(),
         ];
     }
 }

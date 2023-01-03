@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('device_models', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
+            $table->string('id')->primary();
             $table->string('name');
             $table->timestamps();
         });

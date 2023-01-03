@@ -13,7 +13,7 @@ class Device extends Model
 
     public function model()
     {
-        return $this->belongsTo(DeviceModel::class, 'device_model_id');
+        return $this->belongsTo(DeviceModel::class, 'model_number');
     }
 
     public function services()

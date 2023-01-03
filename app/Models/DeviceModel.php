@@ -13,6 +13,8 @@ class DeviceModel extends Model
 
     protected $table = 'device_models';
 
+    public $incrementing = false;
+
     public function devices()
     {
         return $this->hasMany(Device::class);

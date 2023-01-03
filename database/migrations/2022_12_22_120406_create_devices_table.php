@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique()->index();
+            $table->string('model_number');
 
-            $table->foreignId('device_model_id')
-                ->constrained('device_models');
+            $table->foreign('model_number')->references('id')->on('device_models');
 
             $table->nullableMorphs('assignable');
 
