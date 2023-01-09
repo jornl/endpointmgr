@@ -18,9 +18,13 @@ class DeviceModelFactory extends Factory
      */
     public function definition()
     {
+        $type = ['mobile', 'laptop', 'pc', 'charger'];
+
         return [
             'id' => Str::random(7),
             'name' => $this->faker->company(),
+            'type' => $type[rand(0, 3)],
+            'icon' => 'fa-laptop',
             'manufacturer_id' => Manufacturer::factory()->create(),
         ];
     }
