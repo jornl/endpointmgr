@@ -13,7 +13,7 @@ class UpdateManufacturerRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('manage_manufacturer');
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateManufacturerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'display_name' => 'nullable'
         ];
     }
 }

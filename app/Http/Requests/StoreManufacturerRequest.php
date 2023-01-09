@@ -24,7 +24,8 @@ class StoreManufacturerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'display_name' => 'nullable'
         ];
     }
 }

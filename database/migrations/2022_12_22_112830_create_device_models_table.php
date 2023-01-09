@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('device_models', function (Blueprint $table) {
-            // $table->id();
             $table->string('id')->primary();
             $table->string('name');
+            $table->string('type');
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }
